@@ -285,7 +285,26 @@ class HashMap {
         return allValues;
     }
 
-    entries() {}
+    entries() {
+        const allPairs = [];
+        const table = this.table;
+
+        table.forEach(list => {
+            if (list === undefined)
+                return
+            else {
+                const listSize = list.size();
+
+                for (let i=0; i<listSize; i++) {
+                    const node = list.at(i);
+
+                    allPairs.push([node.key, node.value]);
+                };
+            };
+        });
+
+        return allPairs;
+    }
 }
 
 module.exports = HashMap;
