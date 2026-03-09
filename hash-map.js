@@ -174,9 +174,7 @@ class HashMap {
         };
     }
 
-    get(key) {
-
-    }
+    get(key) {}
 
     has(key) {
         const hashCode = this.#hash(key)
@@ -189,7 +187,21 @@ class HashMap {
 
     remove(key) {}
     
-    length() {}
+    length() {
+        const table = this.table;
+        let total = 0;
+
+        table.forEach(list => {
+            if (list === undefined)
+                return
+            else {
+                const listSize = list.size();
+                total += listSize;
+            }
+        });
+
+        return total;
+    }
 
     clear() {
         this.table = new Array(this.capacity);
