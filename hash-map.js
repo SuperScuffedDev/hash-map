@@ -142,6 +142,14 @@ class HashMap {
     }
 
     #increaseCapacity() {
+        const oldEntries = this.entries();
+
+        this.capacity = this.capacity * 2;
+        this.table = new Array(this.capacity);
+
+        oldEntries.forEach(pair =>
+            this.set(pair[0], pair[1])
+        );
     }
 
     #hash(key) {
