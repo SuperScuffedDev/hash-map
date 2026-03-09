@@ -225,10 +225,29 @@ class HashMap {
             };
         });
 
-        return allKeys
+        return allKeys;
     }
 
-    values() {}
+    values() {
+        const allValues = [];
+        const table = this.table;
+
+        table.forEach(list => {
+            if (list === undefined)
+                return
+            else {
+                const listSize = list.size();
+
+                for (let i=0; i<listSize; i++) {
+                    const node = list.at(i);
+
+                    allValues.push(node.value);
+                };
+            };
+        });
+
+        return allValues;
+    }
 
     entries() {}
 }
