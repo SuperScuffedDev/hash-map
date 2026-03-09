@@ -31,13 +31,6 @@ class LinkedList{
         }
     }
 
-    head() {
-        if (this.headNode === null)
-            return undefined;
-        else
-            return this.headNode.value;
-    }
-
     at(index) {
         if (this.headNode === null || index < 0)
             return undefined;
