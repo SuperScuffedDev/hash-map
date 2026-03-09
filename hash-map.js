@@ -1,10 +1,147 @@
+class Node {
+    constructor(key = null, value = null, nextNode = null) {
+        this.key = key
+        this.value = value;
+        this.nextNode = nextNode;
+    }
+}
+
+class LinkedList{
+    constructor() {
+        this.headNode = null;
+    }
+
+    prepend(key, value) {
+        this.headNode = new Node(key, value, this.headNode);
+    }
+
+    size() {
+        let count = 0
+
+        if (this.headNode === null)
+            return count;
+        else {
+            let currentNode = this.headNode;
+            while (currentNode.nextNode !== null) {
+                count += 1;
+                currentNode = currentNode.nextNode;
+            };
+            count += 1;
+            return count;
+        }
+    }
+
+    head() {
+        if (this.headNode === null)
+            return undefined;
+        else
+            return this.headNode.value;
+    }
+
+    at(index) {
+        if (this.headNode === null || index < 0)
+            return undefined;
+        else {
+            let currentNode = this.headNode;
+            for (let i=0; i<index; i++) {
+                if (currentNode.nextNode !== null)
+                    currentNode = currentNode.nextNode;
+                else return undefined;
+            };
+            return currentNode.value;
+        }
+    }
+    
+    pop() {
+        if (this.headNode === null)
+            return undefined;
+        else {
+            const oldHeadNode = this.headNode;
+
+            this.headNode = this.headNode.nextNode;
+            oldHeadNode.nextNode = null;
+
+            return oldHeadNode.value;
+        }
+    }
+
+    contains(key) {
+        if (this.headNode === null)
+            return false;
+        else {
+            let currentNode = this.headNode;
+            
+            while (currentNode.nextNode !== null) {
+                if (currentNode.key === key) return true;
+                else currentNode = currentNode.nextNode;
+            };
+            if (currentNode.key === key) return true;
+            else return false ;
+        };
+    }
+
+    findIndex(key) {
+        if (this.headNode === null)
+            return -1;
+        else {
+            let currentNode = this.headNode;
+            let index = 0
+            while (currentNode.nextNode !== null) {
+                if (currentNode.key === key)
+                    return index;
+                else {
+                    currentNode = currentNode.nextNode
+                    index += 1
+                }
+            };
+            if (currentNode.key === key) return index;
+            else return -1;
+        }
+    }
+
+    removeAt(index) {
+        const listSize = this.size();
+        if (index < 0 || index > listSize)
+            throw RangeError(`requested index: ${index} | indexed: 0 - ${listSize - 1}`);
+
+        if (index === 0)
+            return this.pop();
+        else {
+            let currentNode = this.headNode;
+            for (let i = 1; i < index; i++) {
+                currentNode = currentNode.nextNode;
+            };
+            const nodeToRemove = currentNode.nextNode;
+
+            currentNode.nextNode = nodeToRemove.nextNode;
+            nodeToRemove.nextNode = null;
+
+            return nodeToRemove.value;
+        }
+    }
+
+    update(index, value) {
+        const listSize = this.size();
+        if (index < 0 || index > listSize)
+            throw RangeError(`requested index: ${index} | indexed: 0 - ${listSize - 1}`);
+
+        let currentNode = this.headNode;
+        for (let i = 1; i < index; i++) {
+            currentNode = currentNode.nextNode;
+        };
+
+        currentNode.value = value;
+    }
+}
+
 class HashMap {
     constructor(loadFactor = 0.75, capacity = 16) {
         this.loadFactor = loadFactor;
         this.capacity = capacity;
+        this.table = new Array(capacity);
     }
 
-    hash(key) {
+    #hash(key) {
         let hashCode = 0;
 
         const primeNumber = 31;
@@ -16,7 +153,24 @@ class HashMap {
         return hashCode
     }
 
-    set(key, value) {}
+    set(key, value) {
+        const table = this.table;
+        const hashCode = this.#hash(key);
+        
+        if (table[hashCode] === undefined) {
+            table[hashCode] = new LinkedList();
+            table[hashCode].prepend(key, value);
+        } else {
+            const list = table[hashCode];
+            const index = list.findIndex(key);
+            if (index === -1)
+                list.prepend(key, value);
+            else {
+
+                list.update(index, value);
+            };
+        };
+    }
 
     get(key) {}
 
@@ -26,7 +180,9 @@ class HashMap {
     
     length() {}
 
-    clear() {}
+    clear() {
+        this.table = new Array(this.capacity);
+    }
 
     keys() {}
 
