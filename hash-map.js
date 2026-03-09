@@ -174,7 +174,8 @@ class HashMap {
         };
     }
 
-    get(key) {}
+    get(key) {
+    }
 
     has(key) {
         const hashCode = this.#hash(key)
@@ -188,25 +189,20 @@ class HashMap {
     remove(key) {
         const table = this.table
         
-        let index = -1
+        const findIndex = () => {
+            for (let i = 0; i < table.length; i++) {
+                if (table[i] !== undefined) {
+                    const nodeIndex = list.findIndex(key);
 
-        const findIndex = (list) => {
-            if (list === undefined)
-                return false;
-
-            index = list.findIndex(key);
-
-            if (index >= 0) {
-                list.removeAt(index);
-                return true;
-            } else
-                return false;
+                    if (nodeIndex >= 0)
+                        table[i].removeAt(nodeIndex);
+                        return true;
+                }
+            }
+            return false
         }
 
-        if(table.some(findIndex))
-            return true;
-        else
-            return false;
+        return findIndex();
     }
     
     length() {
