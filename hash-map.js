@@ -141,7 +141,8 @@ class HashMap {
         this.table = new Array(capacity);
     }
 
-    #increaseCapacity() {}
+    #increaseCapacity() {
+    }
 
     #hash(key) {
         let hashCode = 0;
@@ -172,26 +173,21 @@ class HashMap {
                 list.update(index, value);
             };
         };
+        
+        if (this.length() > this.capacity * this.loadFactor)
+            this.#increaseCapacity();
     }
 
     get(key) {
-        const table = this.table
-        
-        const findIndex = () => {
-            for (let i = 0; i < table.length; i++) {
-                if (table[i] !== undefined) {
-                    const nodeIndex = table[i].findIndex(key);
-
-                    if (nodeIndex >= 0) {
-                        const node = table[i].at(nodeIndex);
-                        return node.value;
-                    }
-                }
-            }
+        const hashCode = this.#hash(key)
+        const table = this.table;
+        if (table[hashCode] === undefined)
             return null
+        else {
+            const nodeIndex = table[hashCode].findIndex(key);
+            const node = table[hashCode].at(nodeIndex);
+            return node.value;
         }
-
-        return findIndex();
     }
 
     has(key) {
@@ -204,23 +200,15 @@ class HashMap {
     }
 
     remove(key) {
-        const table = this.table
-        
-        const findIndex = () => {
-            for (let i = 0; i < table.length; i++) {
-                if (table[i] !== undefined) {
-                    const nodeIndex = table[i].findIndex(key);
-
-                    if (nodeIndex >= 0) {
-                        table[i].removeAt(nodeIndex);
-                        return true;
-                    }
-                }
-            }
-            return false
-        }
-
-        return findIndex();
+        const hashCode = this.#hash(key)
+        const table = this.table;
+        if (table[hashCode] === undefined)
+            return false;
+        else {
+            const nodeIndex = table[hashCode].findIndex(key);
+            table[hashCode].removeAt(nodeIndex);
+            return true;
+        };
     }
     
     length() {
