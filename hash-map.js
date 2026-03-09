@@ -185,7 +185,29 @@ class HashMap {
             return table[hashCode].contains(key)
     }
 
-    remove(key) {}
+    remove(key) {
+        const table = this.table
+        
+        let index = -1
+
+        const findIndex = (list) => {
+            if (list === undefined)
+                return false;
+
+            index = list.findIndex(key);
+
+            if (index >= 0) {
+                list.removeAt(index);
+                return true;
+            } else
+                return false;
+        }
+
+        if(table.some(findIndex))
+            return true;
+        else
+            return false;
+    }
     
     length() {
         const table = this.table;
