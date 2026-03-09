@@ -1,5 +1,5 @@
 ## Hash Map
-Module for HashMap integrated with javascript.
+Module for HashMap integrated with javascript. will only allow strings as keys.
 uses linked lists to handle collisions(https://github.com/SuperScuffedDev/linked-list).
 
 ### methods
