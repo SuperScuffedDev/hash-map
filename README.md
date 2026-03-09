@@ -14,10 +14,10 @@ uses linked lists to handle collisions(https://github.com/SuperScuffedDev/linked
 
 - `length()`: returns the total number of nodes in the table.
 
-- `clear(index)`: removes all nodes in the table, esentially resetting it.
+- `clear()`: removes all nodes in the table, esentially resetting it.
 
 - `keys()`: returns an array of every key in the table
 
-- `values(value)`: returns an array of every value in the table.
+- `values()`: returns an array of every value in the table.
 
-- `entries(value)`: returns an array of every key: value pair in the table. structured as: [[key, value], [key2, value2]...]
+- `entries()`: returns an array of every key: value pair in the table. structured as: [[key, value], [key2, value2]...]
