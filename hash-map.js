@@ -182,12 +182,13 @@ class HashMap {
                 if (table[i] !== undefined) {
                     const nodeIndex = table[i].findIndex(key);
 
-                    if (nodeIndex >= 0)
-                        table[i].removeAt(nodeIndex);
-                        return true;
+                    if (nodeIndex >= 0) {
+                        const node = table[i].at(nodeIndex);
+                        return node.value;
+                    }
                 }
             }
-            return false
+            return null
         }
 
         return findIndex();
@@ -210,9 +211,10 @@ class HashMap {
                 if (table[i] !== undefined) {
                     const nodeIndex = table[i].findIndex(key);
 
-                    if (nodeIndex >= 0)
+                    if (nodeIndex >= 0) {
                         table[i].removeAt(nodeIndex);
                         return true;
+                    }
                 }
             }
             return false
