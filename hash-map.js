@@ -48,7 +48,7 @@ class LinkedList{
                     currentNode = currentNode.nextNode;
                 else return undefined;
             };
-            return currentNode.value;
+            return currentNode;
         }
     }
     
@@ -207,7 +207,26 @@ class HashMap {
         this.table = new Array(this.capacity);
     }
 
-    keys() {}
+    keys() {
+        const allKeys = [];
+        const table = this.table;
+
+        table.forEach(list => {
+            if (list === undefined)
+                return
+            else {
+                const listSize = list.size();
+
+                for (let i=0; i<listSize; i++) {
+                    const node = list.at(i);
+
+                    allKeys.push(node.key);
+                };
+            };
+        });
+
+        return allKeys
+    }
 
     values() {}
 
