@@ -141,6 +141,8 @@ class HashMap {
         this.table = new Array(capacity);
     }
 
+    #increaseCapacity() {}
+
     #hash(key) {
         let hashCode = 0;
 
@@ -172,9 +174,18 @@ class HashMap {
         };
     }
 
-    get(key) {}
+    get(key) {
 
-    has(key) {}
+    }
+
+    has(key) {
+        const hashCode = this.#hash(key)
+        const table = this.table;
+        if (table[hashCode] === undefined)
+            return false
+        else
+            return table[hashCode].contains(key)
+    }
 
     remove(key) {}
     
