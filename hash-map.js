@@ -175,6 +175,22 @@ class HashMap {
     }
 
     get(key) {
+        const table = this.table
+        
+        const findIndex = () => {
+            for (let i = 0; i < table.length; i++) {
+                if (table[i] !== undefined) {
+                    const nodeIndex = table[i].findIndex(key);
+
+                    if (nodeIndex >= 0)
+                        table[i].removeAt(nodeIndex);
+                        return true;
+                }
+            }
+            return false
+        }
+
+        return findIndex();
     }
 
     has(key) {
@@ -192,7 +208,7 @@ class HashMap {
         const findIndex = () => {
             for (let i = 0; i < table.length; i++) {
                 if (table[i] !== undefined) {
-                    const nodeIndex = list.findIndex(key);
+                    const nodeIndex = table[i].findIndex(key);
 
                     if (nodeIndex >= 0)
                         table[i].removeAt(nodeIndex);
