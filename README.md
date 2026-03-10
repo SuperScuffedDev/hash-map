@@ -14,7 +14,7 @@ uses linked lists to handle collisions(https://github.com/SuperScuffedDev/linked
 
 - `length()`: returns the total number of nodes in the table.
 
-- `clear()`: removes all nodes in the table, esentially resetting it.
+- `clear()`: removes all nodes in the table, essentially resetting it.
 
 - `keys()`: returns an array of every key in the table
 
